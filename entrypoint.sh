@@ -6,8 +6,13 @@ cd /home/container
 # Update Unturned Server
 ./steam/steamcmd.sh +@sSteamCmdForcePlatformBitness 32 +login "${STEAM_USER}" "${STEAM_PASS}" +force_install_dir /home/container +app_update 304930 +quit
 echo "Downloading RocketMod..."
-curl -o Rocket.zip "https://ci.rocketmod.net/job/Rocket.Unturned%20Linux/lastSuccessfulBuild/artifact/Rocket.Unturned/bin/Release/Rocket.zip"
-unzip -o -q Rocket.zip
+cd /home/container
+wget https://ci.rocketmod.net/job/Rocket.Unturned/lastSuccessfulBuild/artifact/Rocket.Unturned/bin/Release/Rocket.zip -O Rocket.zip
+unzip -o Rocket.zip
+rm Rocket.zip
+cd /home/container/Scripts
+rm -rf Linux
+rm -rf Windows
 
 # Panel Workaround
 #if [ -z "${ALLOC_0__PORT}" ] || [ "$((ALLOC_0__PORT-1))" != "${SERVER_PORT}" ]; then
