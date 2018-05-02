@@ -11,8 +11,12 @@ wget https://ci.rocketmod.net/job/Rocket.Unturned/lastSuccessfulBuild/artifact/R
 unzip -o Rocket.zip
 rm Rocket.zip
 cd /home/container/Scripts
-rm -rf Linux
 rm -rf Windows
+cd /home/container/Scripts/Linux
+mv *.exe /home/container
+mv *.sh /home/container/Scripts
+cd /home/container/Scripts
+rm -rf Linux
 
 # Panel Workaround
 #if [ -z "${ALLOC_0__PORT}" ] || [ "$((ALLOC_0__PORT-1))" != "${SERVER_PORT}" ]; then
