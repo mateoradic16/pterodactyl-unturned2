@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-MAINTAINER Isaac A, <isaac@isaacs.site>
+MAINTAINER Mateo R, <mateoradic16@gmail.com>
 
 RUN dpkg --add-architecture i386 && \
     apt update && \
