@@ -12,13 +12,12 @@ unzip -o -q Rocket.zip
 rm Rocket.zip
 mkdir rocketmod
 cd /home/container/rocketmod
-curl -o Rocket.zip https://ci.rocketmod.net/job/Rocket.Unturned/lastSuccessfulBuild/artifact/Rocket.Unturned/bin/Release/Rocket.zip
+curl -o /home/container/rocketmod/Rocket.zip https://ci.rocketmod.net/job/Rocket.Unturned/lastSuccessfulBuild/artifact/Rocket.Unturned/bin/Release/Rocket.zip
 cd /home/container/rocketmod/Scripts
 rm -rf Windows
 cd /home/container/rocketmod/Scripts/Linux
 mv *.sh /home/container/Scripts
 cd /home/container
-rm -rf rocketmod
 
 # Panel Workaround
 #if [ -z "${ALLOC_0__PORT}" ] || [ "$((ALLOC_0__PORT-1))" != "${SERVER_PORT}" ]; then
