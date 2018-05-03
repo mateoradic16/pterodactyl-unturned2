@@ -10,14 +10,18 @@ cd /home/container
 curl -o Rocket.zip https://ci.rocketmod.net/job/Rocket.Unturned%20Linux/lastSuccessfulBuild/artifact/Rocket.Unturned/bin/Release/Rocket.zip
 unzip -o -q Rocket.zip
 rm Rocket.zip
+cd /home/container/Modules/Rocket.Unturned
+rm -rf *
+cd /home/container/
 mkdir rocketmod
 cd /home/container/rocketmod
 curl -o /home/container/rocketmod/Rocket.zip https://ci.rocketmod.net/job/Rocket.Unturned/lastSuccessfulBuild/artifact/Rocket.Unturned/bin/Release/Rocket.zip
 cd /home/container/rocketmod/Scripts
 rm -rf Windows
-cd /home/container/rocketmod/Scripts/Linux
-mv *.sh /home/container/Scripts
-cd /home/container
+cd /home/container/rocketmod/Modules/Rocket.Unturned
+mv *.dll /home/container/Modules/Rocket.Unturned
+
+
 
 # Panel Workaround
 #if [ -z "${ALLOC_0__PORT}" ] || [ "$((ALLOC_0__PORT-1))" != "${SERVER_PORT}" ]; then
