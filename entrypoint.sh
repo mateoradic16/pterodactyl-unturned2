@@ -7,16 +7,18 @@ cd /home/container
 ./steam/steamcmd.sh +@sSteamCmdForcePlatformBitness 32 +login "${STEAM_USER}" "${STEAM_PASS}" +force_install_dir /home/container +app_update 304930 +quit
 echo "Downloading RocketMod..."
 cd /home/container
-curl -o Rocket.zip https://ci.rocketmod.net/job/Rocket.Unturned/lastSuccessfulBuild/artifact/Rocket.Unturned/bin/Release/Rocket.zip
+curl -o Rocket.zip https://ci.rocketmod.net/job/Rocket.Unturned%20Linux/lastSuccessfulBuild/artifact/Rocket.Unturned/bin/Release/Rocket.zip
 unzip -o -q Rocket.zip
 rm Rocket.zip
-cd /home/container/Scripts
+mkdir rocketmod
+cd /home/container/rocketmod
+curl -o Rocket.zip https://ci.rocketmod.net/job/Rocket.Unturned/lastSuccessfulBuild/artifact/Rocket.Unturned/bin/Release/Rocket.zip
+cd /home/container/rocketmod/Scripts
 rm -rf Windows
-cd /home/container/Scripts/Linux
-mv *.exe /home/container
+cd /home/container/rocketmod/Scripts/Linux
 mv *.sh /home/container/Scripts
-cd /home/container/Scripts
-rm -rf Linux
+cd /home/container
+rm -rf rocketmod
 
 # Panel Workaround
 #if [ -z "${ALLOC_0__PORT}" ] || [ "$((ALLOC_0__PORT-1))" != "${SERVER_PORT}" ]; then
@@ -26,14 +28,14 @@ rm -rf Linux
 #fi
 
 # Unturned Workaround
-cp steam/linux32/steamclient.so /lib
-cp steam/linux64/steamclient.so /lib64
+cp /home/container/steam/linux32/steamclient.so /lib
+cp /home/container/steam/linux64/steamclient.so /lib64
 ulimit -n 2048
 export LD_LIBRARY_PATH=$HOME/lib:$LD_LIBRARY_PATH
 
 # Replace Startup Variables
 MODIFIED_STARTUP=$(eval echo $(echo ${STARTUP} | sed -e 's/{{/${/g' -e 's/}}/}/g'))
-echo ":/home/container$ ${MODIFIED_STARTUP}"
+echo ":/home/container# ${MODIFIED_STARTUP}"
 
 # Run the Server
 ${MODIFIED_STARTUP}
