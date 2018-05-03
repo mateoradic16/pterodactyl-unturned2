@@ -7,19 +7,13 @@ cd /home/container
 ./steam/steamcmd.sh +@sSteamCmdForcePlatformBitness 32 +login "${STEAM_USER}" "${STEAM_PASS}" +force_install_dir /home/container +app_update 304930 +quit
 echo "Downloading RocketMod..."
 cd /home/container
-mkdir rocketmod
-cd /home/container/rocketmod
+curl -o https://ci.rocketmod.net/job/Rocket.Unturned%20Linux/lastSuccessfulBuild/artifact/Rocket.Unturned/bin/Release/Rocket.zip
+unzip -o -q Rocket.zip
+rm -rf Rocket.zip
+cd /home/container
 curl -o Rocket.zip https://ci.rocketmod.net/job/Rocket.Unturned/lastSuccessfulBuild/artifact/Rocket.Unturned/bin/Release/Rocket.zip
 unzip -o -q Rocket.zip
-cd /home/container/rocketmod/Scripts
-rm -rf Windows
-cd /home/container/rocketmod/Scripts/Linux
-mv *.sh /home/container/Scripts/
-mv *.exe /home/container/
-cd /home/container/rocketmod/Modules/Rocket.Unturned
-mv *.dll /home/container/Modules/Rocket.Unturned
-chmod 755 /home/container/Scripts/start.sh
-chmod 755 /home/container/Scripts/update.sh
+rm -rf Rocket.zip
 
 
 
