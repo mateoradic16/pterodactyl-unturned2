@@ -3,6 +3,7 @@ FROM ubuntu:latest
 MAINTAINER Mateo R, <mateoradic16@gmail.com>
 
 RUN dpkg --add-architecture i386 && \
+    apt update && \
     apt install -y tzdata && \
     apt update && \
     apt install -y lib32gcc1 lib32stdc++6 curl unzip libmono-cil-dev mono-runtime lib32gcc1 lib32stdc++6 libglu1-mesa libxcursor1 libxrandr2 libc6:i386 libgl1-mesa-glx:i386 libxcursor1:i386 libxrandr2:i386 && \
