@@ -20,6 +20,8 @@ cd /home/container/rocketmod/Scripts
 rm -rf Windows
 cd /home/container/rocketmod/Modules/Rocket.Unturned
 mv *.dll /home/container/Modules/Rocket.Unturned
+chmod 755 /home/container/Scripts/start.sh
+chmod 755 /home/container/Scripts/update.sh
 
 
 
