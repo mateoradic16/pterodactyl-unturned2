@@ -4,7 +4,7 @@ sleep 2
 cd /home/container
 
 # Update Unturned Server
-./steam/steamcmd.sh +@sSteamCmdForcePlatformBitness 32 +login "${STEAM_USER}" "${STEAM_PASS}" +force_install_dir /home/container +app_update 304930 validate +quit
+./steam/steamcmd.sh +@sSteamCmdForcePlatformBitness 32 +login "${STEAM_USER}" "${STEAM_PASS}" +force_install_dir /home/container +app_update 304930 +quit
 echo "Downloading RocketMod..."
 cd /home/container
 curl -o Rocket.zip https://ci.rocketmod.net/job/Rocket.Unturned%20Linux/lastSuccessfulBuild/artifact/Rocket.Unturned/bin/Release/Rocket.zip
