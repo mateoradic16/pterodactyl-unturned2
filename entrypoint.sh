@@ -41,7 +41,6 @@ cd /home/container
 export MONO_IOMAP=all
 
 #CONFIG
-INSTANCE_NAME=$1
 STEAMCMD_HOME="/home/container/steam"
 UNTURNED_HOME="/home/container/"
 
