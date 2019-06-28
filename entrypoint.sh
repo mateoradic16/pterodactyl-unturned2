@@ -37,5 +37,45 @@ echo ":/home/container$ ${MODIFIED_STARTUP}"
 
 # Run the Server
 cd /home/container
-${MODIFIED_STARTUP}
+
+export MONO_IOMAP=all
+
+#CONFIG
+INSTANCE_NAME=$1
+STEAMCMD_HOME="/home/container/steam"
+UNTURNED_HOME="/home/container/"
+
+#COLORS
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLLOW='\033[0;33m'
+NC='\033[0m'
+
+#Steam checks
+STEAMCMD_API=$STEAMCMD_HOME/linux64/steamclient.so
+UNTURNED_API=$UNTURNED_HOME/lib
+mkdir $UNTURNED_API
+printf "Steam: "
+if [ -f $STEAMCMD_API ]; then
+	if diff $STEAMCMD_API $UNTURNED_API >/dev/null ; then
+		printf "${GREEN}UP TO DATE${NC}\n\n"
+	else
+		cp $STEAMCMD_API $UNTURNED_API
+		printf "${YELLLOW}UPDATING${NC}\n\n"
+	fi
+else
+	printf "${RED}NOT FOUND${NC}\n\n"
+fi
+
+cd $UNTURNED_HOME
+
+if [ -f RocketLauncher.exe ]; then
+	ulimit -n 2048
+	export LD_LIBRARY_PATH=$UNTURNED_HOME/lib:$LD_LIBRARY_PATH
+	${MODIFIED_STARTUP}
+else
+	echo "RocketLauncher not found."
+fi
+
+
 echo "If there was an error above when trying to stop your server, it can usually be ignored."
