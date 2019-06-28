@@ -4,20 +4,18 @@ sleep 2
 cd /home/container
 
 # Update Unturned Server
-./steam/steamcmd.sh +@sSteamCmdForcePlatformBitness 32 +login "${STEAM_USER}" "${STEAM_PASS}" +force_install_dir /home/container +app_update 304930 +quit
+./steam/steamcmd.sh +login anonymous +force_install_dir /home/container +app_update 1110390 +quit
 echo "Downloading RocketMod..."
-cd /home/container
-curl -o Rocket.zip https://ci.rocketmod.net/job/Rocket.Unturned%20Linux/lastSuccessfulBuild/artifact/Rocket.Unturned/bin/Release/Rocket.zip
+curl -o Rocket.zip "https://ci.rocketmod.net/job/Rocket.Unturned/lastSuccessfulBuild/artifact/Rocket.Unturned/bin/Release/Rocket.zip"
 unzip -o -q Rocket.zip
-rm -rf Rocket.zip
-cd /home/container
-curl -o Rocket.zip https://ci.rocketmod.net/job/Rocket.Unturned/lastSuccessfulBuild/artifact/Rocket.Unturned/bin/Release/Rocket.zip
-unzip -o -q Rocket.zip
-rm -rf Rocket.zip
+cd Scripts/Linux
+mv RocketLauncher.exe /home/container/
+mv * /home/container/Scripts
+cd /home/container/Scripts
+rm -rf Linux
+rm -rf Windows
 
-
-
-# Panel Workaround
+# Feature removed from panel?
 #if [ -z "${ALLOC_0__PORT}" ] || [ "$((ALLOC_0__PORT-1))" != "${SERVER_PORT}" ]; then
 #    echo "Please add port $((SERVER_PORT+1)) to the server as an additional allocation, or you will be unable to connect."
 #    sleep 10
@@ -25,14 +23,12 @@ rm -rf Rocket.zip
 #fi
 
 # Unturned Workaround
-cp /home/container/steam/linux32/steamclient.so /lib
-cp /home/container/steam/linux64/steamclient.so /lib64
 ulimit -n 2048
 export LD_LIBRARY_PATH=$HOME/lib:$LD_LIBRARY_PATH
 
 # Replace Startup Variables
 MODIFIED_STARTUP=$(eval echo $(echo ${STARTUP} | sed -e 's/{{/${/g' -e 's/}}/}/g'))
-echo ":/home/container# ${MODIFIED_STARTUP}"
+echo ":/home/container$ ${MODIFIED_STARTUP}"
 
 # Run the Server
 ${MODIFIED_STARTUP}
