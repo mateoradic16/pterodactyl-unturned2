@@ -3,6 +3,12 @@ sleep 2
 
 cd /home/container
 
+mkdir steam && cd steam
+curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf -
+
+chown -R root:root /mnt
+cd ../
+
 # Update Unturned Server
 ./steam/steamcmd.sh +login anonymous +force_install_dir /home/container +app_update 1110390 +quit
 echo "Downloading RocketMod..."
