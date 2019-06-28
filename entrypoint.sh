@@ -6,20 +6,19 @@ cd /home/container
 mkdir steam && cd steam
 curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf -
 
-chown -R root:root /mnt
-cd ../
+cd /home/container
 
 # Update Unturned Server
 ./steam/steamcmd.sh +login anonymous +force_install_dir /home/container +app_update 1110390 +quit
 echo "Downloading RocketMod..."
 curl -o Rocket.zip "https://ci.rocketmod.net/job/Rocket.Unturned/lastSuccessfulBuild/artifact/Rocket.Unturned/bin/Release/Rocket.zip"
 unzip -o -q Rocket.zip
-cd Scripts/Linux
-mv RocketLauncher.exe /home/container/
-mv * /home/container/Scripts
-cd /home/container/Scripts
-rm -rf Linux
-rm -rf Windows
+mv /home/container/Scripts/Linux/RocketLauncher.exe /home/container/
+mv /home/container/Scripts/Linux/* /home/container/Scripts
+rm -rf /home/container/Scripts/Linux
+rm -rf /home/container/Scripts/Windows
+
+cd /home/container
 
 # Feature removed from panel?
 #if [ -z "${ALLOC_0__PORT}" ] || [ "$((ALLOC_0__PORT-1))" != "${SERVER_PORT}" ]; then
@@ -37,5 +36,6 @@ MODIFIED_STARTUP=$(eval echo $(echo ${STARTUP} | sed -e 's/{{/${/g' -e 's/}}/}/g
 echo ":/home/container$ ${MODIFIED_STARTUP}"
 
 # Run the Server
+cd /home/container
 ${MODIFIED_STARTUP}
 echo "If there was an error above when trying to stop your server, it can usually be ignored."
